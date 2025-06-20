@@ -1,0 +1,88 @@
+name: Harness Apply
+
+on:
+  workflow_call:
+    inputs:
+      gh_environment:
+        description: 'Specifies the GitHub deployment environment.'
+        required: false
+        type: string
+        default: null
+
+      workdir_path:
+        description: 'Specifies the working directory.'
+        required: false
+        type: string
+        default: null
+
+    secrets:
+      AWS_REGION:
+        description: 'AWS Region'
+        required: true
+      AWS_OIDC_ROLE_ARN_NONPROD:
+        description: 'OIDC ROle'
+        required: true
+      S3_BACKEND_ROLE_ARN:
+        description: 'S3 BACKEND ROLE ARN'
+        required: true
+      TF_VAR_HARNESS_ENDPOINT:
+        description: 'HARNESS_ENDPOINT'
+        required: true
+      TF_VAR_HARNESS_ACCOUNT_ID:
+        description: 'HARNESS_ACCOUNT_ID'
+        required: true
+      TF_VAR_HARNESS_PLATFORM_API_KEY:
+        description: 'HARNESS_PLATFORM_API_KEY'
+        required: true
+      PRIVATEKEYS:
+        description: 'PRIVATEKEYS'
+        required: true     
+
+  workflow_dispatch:
+
+jobs:
+  terraform-apply:
+    name: Terraform Apply
+    environment:
+        name: ${{ inputs.gh_environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+          
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: "1.9.4"
+        
+      - name: Get list of changed directories
+        id: get-changed-dirs
+        run: |
+          CHANGED_DIRS=$(git diff --dirstat=files,0 HEAD^ HEAD | awk '{print $2}')
+          LAST_CHANGED_DIR=$(echo "$CHANGED_DIRS" | tail -n 1)
+          echo "Latest changed directory: $LAST_CHANGED_DIR"
+          echo "::set-output name=dir::$LAST_CHANGED_DIR"
+        
+      - name: Copy private key to download remote repo files
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.PRIVATEKEYS }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: "${{ secrets.AWS_REGION }}"
+          role-to-assume:  "${{ secrets.AWS_OIDC_ROLE_ARN_NONPROD }}" 
+          role-session-name: Terraform-Deployment
+
+      - name: Terraform Apply harness-resources
+        working-directory: 'harness-resources'
+        run: |
+          echo "TF_VAR_HARNESS_ENDPOINT=${{ secrets.TF_VAR_HARNESS_ENDPOINT }}" >> $GITHUB_ENV
+          echo "TF_VAR_HARNESS_ACCOUNT_ID=${{ secrets.TF_VAR_HARNESS_ACCOUNT_ID }}" >> $GITHUB_ENV
+          echo "TF_VAR_HARNESS_PLATFORM_API_KEY=${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}" >> $GITHUB_ENV
+          terraform init -backend-config="role_arn=${{ secrets.S3_BACKEND_ROLE_ARN }}"
+          terraform apply -auto-approve -var="TF_VAR_HARNESS_ENDPOINT=${{ secrets.TF_VAR_HARNESS_ENDPOINT }}" -var="TF_VAR_HARNESS_ACCOUNT_ID=${{ secrets.TF_VAR_HARNESS_ACCOUNT_ID }}" -var="TF_VAR_HARNESS_PLATFORM_API_KEY=${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}"

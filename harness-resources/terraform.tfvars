@@ -1,0 +1,10 @@
+org_id                     = "ACDevOpsToolsManagement"
+project_id                 = "acodh"
+pipeline_id                = "acodhinfrapipeline"
+target_id                  = "acodhinfrapipeline"
+pipeline_name              = "ac-odh-infra-pipeline"
+repository_connector       = "account.acdevopsgithubharnessconnectorssh"
+repository_branch          = "develop"
+provider_connector_nonprod = "org.acenterprisetoolsnonprodawsconnector"
+provider_connector_prod    = "org.acenterprisetoolsprodawsconnector"
+envs                       = ["int", "crt", "bat", "preprod", "prod"]
