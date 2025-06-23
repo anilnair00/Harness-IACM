@@ -34,7 +34,9 @@ jobs:
       # PRIVATEKEYS: ${{ secrets.AC_HARNESS_TF_MODULES_PVT_KEY }}
       TF_VAR_HARNESS_ENDPOINT: ${{ vars.TF_VAR_HARNESS_ENDPOINT }}
       TF_VAR_HARNESS_ACCOUNT_ID: ${{ vars.TF_VAR_HARNESS_ACCOUNT_ID }}
-      TF_VAR_HARNESS_PLATFORM_API_KEY: 
+      TF_VAR_HARNESS_PLATFORM_API_KEY: sat.g-vh4hT8T4KUr9_mnKTaJg.681b4024bbb1cc0cedfec365.U3yd9VGr19l7bDwVwyhq
+      # sat.g-vh4hT8T4KUr9_mnKTaJg.685595904faad81e28d7112b.K81H7w76DW2pOD7TwaMR
+
 
   harness_apply:
     name: Harness Apply
