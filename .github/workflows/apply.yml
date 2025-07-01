@@ -52,8 +52,8 @@ on:
 jobs:
   terraform-apply:
     name: Terraform Apply
-    environment:
-        name: ${{ inputs.gh_environment }}
+    # environment:
+    #     name: ${{ inputs.gh_environment }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
