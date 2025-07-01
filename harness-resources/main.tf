@@ -202,7 +202,7 @@ locals {
   ])
 }
 module "workspaces" {
-  source     = "git@github.com:AC-DevOpsTools-Management/ac-harness-tf-modules.git//modules/harness-workspaces?ref=main"
+  source     = "git::https://github.com/anilnair00/ac-harness-tf-modules-develop.git//modules/harness-workspaces?ref=main"
   workspaces = local.workspaces
 }
 
