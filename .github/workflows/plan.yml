@@ -43,7 +43,7 @@ on:
       tenant_id:
             description: 'Tenant ID'
             required: true  
-        AZURE_CREDENTIALS: 
+      AZURE_CREDENTIALS: 
             description: 'Azure Credentials'
             required: true    
         
