@@ -25,13 +25,6 @@ jobs:
       gh_environment: prod
       # workdir_path: 'organizations'
     secrets:
-      # AWS_REGION: ${{ vars.AWS_REGION }}
-      # AWS_OIDC_ROLE_ARN_NONPROD: ${{ vars.AC_ENTERPRISETOOLS_PROD_INFRA_OIDC_ROLE_ARN }}
-      # S3_BACKEND_ROLE_ARN: ${{ vars.S3_BACKEND_ROLE_PROD_ARN }}
-      # TF_VAR_HARNESS_ENDPOINT: ${{ vars.TF_VAR_HARNESS_ENDPOINT }}
-      # TF_VAR_HARNESS_ACCOUNT_ID: ${{ vars.TF_VAR_HARNESS_ACCOUNT_ID }}
-      # TF_VAR_HARNESS_PLATFORM_API_KEY: ${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}
-      # PRIVATEKEYS: ${{ secrets.AC_HARNESS_TF_MODULES_PVT_KEY }}
       TF_VAR_HARNESS_ENDPOINT: ${{ vars.TF_VAR_HARNESS_ENDPOINT }}
       TF_VAR_HARNESS_ACCOUNT_ID: ${{ vars.TF_VAR_HARNESS_ACCOUNT_ID }}
       TF_VAR_HARNESS_PLATFORM_API_KEY: sat.g-vh4hT8T4KUr9_mnKTaJg.681b4024bbb1cc0cedfec365.U3yd9VGr19l7bDwVwyhq
@@ -51,13 +44,6 @@ jobs:
       gh_environment: prod
       # workdir_path: 'organizations'
     secrets:
-      # AWS_REGION: ${{ vars.AWS_REGION }}
-      # AWS_OIDC_ROLE_ARN_NONPROD: ${{ vars.AC_ENTERPRISETOOLS_PROD_INFRA_OIDC_ROLE_ARN }}
-      # S3_BACKEND_ROLE_ARN: ${{ vars.S3_BACKEND_ROLE_PROD_ARN }}
-      # TF_VAR_HARNESS_ENDPOINT: ${{ vars.TF_VAR_HARNESS_ENDPOINT }}
-      # TF_VAR_HARNESS_ACCOUNT_ID: ${{ vars.TF_VAR_HARNESS_ACCOUNT_ID }}
-      # TF_VAR_HARNESS_PLATFORM_API_KEY: ${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}
-      # PRIVATEKEYS: ${{ secrets.AC_HARNESS_TF_MODULES_PVT_KEY }}
       TF_VAR_HARNESS_ENDPOINT: ${{ vars.TF_VAR_HARNESS_ENDPOINT }}
       TF_VAR_HARNESS_ACCOUNT_ID: ${{ vars.TF_VAR_HARNESS_ACCOUNT_ID }}
       TF_VAR_HARNESS_PLATFORM_API_KEY: sat.g-vh4hT8T4KUr9_mnKTaJg.681b4024bbb1cc0cedfec365.U3yd9VGr19l7bDwVwyhq
