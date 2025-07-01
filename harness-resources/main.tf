@@ -201,34 +201,10 @@ locals {
     ]
   ])
 }
-
-
 module "workspaces" {
   source     = "git@github.com:AC-DevOpsTools-Management/ac-harness-tf-modules.git//modules/harness-workspaces?ref=main"
   workspaces = local.workspaces
 }
 
 
-module "pipeline" {
-  source     = "git@github.com:AC-DevOpsTools-Management/ac-harness-tf-modules.git//modules/harness-pipelines?ref=main"
-  name       = var.pipeline_name
-  identifier = var.pipeline_id
-  org_id     = var.org_id
-  project_id = var.project_id
-  yaml       = local.yaml
-}
 
-
-module "input_sets" {
-  source     = "git@github.com:AC-DevOpsTools-Management/ac-harness-tf-modules.git//modules/harness-inputsets?ref=main"
-  input_sets = local.input_sets
-  depends_on = [module.pipeline]
-
-}
-
-
-module "triggers" {
-  source     = "git@github.com:AC-DevOpsTools-Management/ac-harness-tf-modules.git//modules/harness-triggers?ref=main"
-  triggers   = local.triggers
-  depends_on = [module.pipeline]
-}
