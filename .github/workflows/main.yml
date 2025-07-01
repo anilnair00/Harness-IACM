@@ -15,14 +15,14 @@ permissions:
     contents: read
     packages: write
     pull-requests: write 
-
+    
 jobs:
   harness_plan:
     name: Harness Plan
     if: github.ref == 'refs/heads/main'
     uses: "./.github/workflows/plan.yml"
-    with:
-      gh_environment: prod
+    # with:
+    #   gh_environment: prod
       # workdir_path: 'organizations'
     secrets:
       TF_VAR_HARNESS_ENDPOINT: ${{ vars.TF_VAR_HARNESS_ENDPOINT }}
@@ -41,8 +41,8 @@ jobs:
     name: Harness Apply
     needs: harness_plan
     uses: "./.github/workflows/apply.yml"
-    with:
-      gh_environment: prod
+    # with:
+    #   gh_environment: prod
       # workdir_path: 'organizations'
     secrets:
       TF_VAR_HARNESS_ENDPOINT: ${{ vars.TF_VAR_HARNESS_ENDPOINT }}
