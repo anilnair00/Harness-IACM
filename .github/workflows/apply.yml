@@ -16,27 +16,36 @@ on:
         default: null
 
     secrets:
-      AWS_REGION:
-        description: 'AWS Region'
-        required: true
-      AWS_OIDC_ROLE_ARN_NONPROD:
-        description: 'OIDC ROle'
-        required: true
-      S3_BACKEND_ROLE_ARN:
-        description: 'S3 BACKEND ROLE ARN'
-        required: true
-      TF_VAR_HARNESS_ENDPOINT:
-        description: 'HARNESS_ENDPOINT'
-        required: true
-      TF_VAR_HARNESS_ACCOUNT_ID:
-        description: 'HARNESS_ACCOUNT_ID'
-        required: true
-      TF_VAR_HARNESS_PLATFORM_API_KEY:
-        description: 'HARNESS_PLATFORM_API_KEY'
-        required: true
-      PRIVATEKEYS:
-        description: 'PRIVATEKEYS'
-        required: true     
+        TF_VAR_HARNESS_ENDPOINT:
+         description: 'HARNESS_ENDPOINT'
+         required: true
+        TF_VAR_HARNESS_ACCOUNT_ID:
+          description: 'HARNESS_ACCOUNT_ID'
+          required: true
+        TF_VAR_HARNESS_PLATFORM_API_KEY:
+          description: 'HARNESS_PLATFORM_API_KEY'
+          required: true
+        # AC_HARNESS_TF_MODULES_PVT_KEY:
+        #   description: 'AC_HARNESS_TF_MODULES_PVT_KEY'
+          #   required: true
+        backendAzureRmResourceGroupName:
+          description: 'HARNESS_PLATFORM_API_KEY'
+          required: true
+        backendAzureRmStorageAccountName:
+          description: 'AC_HARNESS_TF_MODULES_PVT_KEY'
+          required: true   
+        backendAzureRmContainerName:
+          description: 'HARNESS_PLATFORM_API_KEY'
+          required: true
+        backendAzureRmKey:
+            description: 'AC_HARNESS_TF_MODULES_PVT_KEY'
+            required: true   
+        client_id:
+            description: 'Client ID'
+            required: true   
+        tenant_id:
+            description: 'Tenant ID'
+            required: true    
 
   workflow_dispatch:
 
