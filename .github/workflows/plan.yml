@@ -54,14 +54,14 @@ jobs:
     #     name: ${{ inputs.gh_environment }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2
           
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: "1.9.4"
+        uses: hashicorp/setup-terraform@v2
+        # with:
+        #   terraform_version: "1.9.4"
         
       - name: Get list of changed directories
         id: get-changed-dirs
@@ -71,25 +71,42 @@ jobs:
           echo "Latest changed directory: $LAST_CHANGED_DIR"
           echo "::set-output name=dir::$LAST_CHANGED_DIR"
           
-      - name: Copy private key to download remote repo files
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.PRIVATEKEYS }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+      # - name: Copy private key to download remote repo files
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     echo "${{ secrets.PRIVATEKEYS }}" > ~/.ssh/id_rsa
+      #     chmod 600 ~/.ssh/id_rsa
 
-      - name: Configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v2
+      # - name: Configure aws credentials
+      #   uses: aws-actions/configure-aws-credentials@v2
+      #   with:
+      #     aws-region: "${{ secrets.AWS_REGION }}"
+      #     role-to-assume: "${{ secrets.AWS_OIDC_ROLE_ARN_NONPROD }}"
+      #     role-session-name: Terraform-Deployment
+      
+      - uses: azure/login@v1
         with:
-          aws-region: "${{ secrets.AWS_REGION }}"
-          role-to-assume: "${{ secrets.AWS_OIDC_ROLE_ARN_NONPROD }}"
-          role-session-name: Terraform-Deployment
-
-      - name: Terraform Plan harness-resources
-        working-directory: 'harness-resources'      
+         client-id: ${{ secrets.client_id }}
+         tenant-id: ${{ secrets.tenant_id }}
+         # subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+         allow-no-subscriptions: true
+         
+      - name: Terraform Plan Pipelines
+        # working-directory: 'pipelines/ecs'
+        working-directory: 'connectors'
         # working-directory: ${{ inputs.workdir_path }}
         run: |
           echo "TF_VAR_HARNESS_ENDPOINT=${{ secrets.TF_VAR_HARNESS_ENDPOINT }}" >> $GITHUB_ENV
           echo "TF_VAR_HARNESS_ACCOUNT_ID=${{ secrets.TF_VAR_HARNESS_ACCOUNT_ID }}" >> $GITHUB_ENV
           echo "TF_VAR_HARNESS_PLATFORM_API_KEY=${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}" >> $GITHUB_ENV
-          terraform init -backend-config="role_arn=${{ secrets.S3_BACKEND_ROLE_ARN }}"
+          # terraform init -backend-config="role_arn=${{ secrets.S3_BACKEND_ROLE_PROD_ARN }}"
+          # terraform init -backend-config="resource_group_name=${{ secrets.AZURE_RG_NAME }}" \
+          #      -backend-config="storage_account_name=${{ secrets.AZURE_STORAGE_ACCOUNT }}" \
+          #      -backend-config="container_name=${{ secrets.AZURE_STORAGE_CONTAINER }}" \
+          #      -backend-config="key=terraform.tfstate" \
+          #      -backend-config="access_key=${{ secrets.AZURE_STORAGE_KEY }}"
+          terraform init -backend-config="resource_group_name=Testvm_group" \
+               -backend-config="storage_account_name=testvmgroupb7e2" \
+               -backend-config="container_name=tfstate" \
+               -backend-config="key=harness"
           terraform plan -var="TF_VAR_HARNESS_ENDPOINT=${{ secrets.TF_VAR_HARNESS_ENDPOINT }}" -var="TF_VAR_HARNESS_ACCOUNT_ID=${{ secrets.TF_VAR_HARNESS_ACCOUNT_ID }}" -var="TF_VAR_HARNESS_PLATFORM_API_KEY=${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}"
