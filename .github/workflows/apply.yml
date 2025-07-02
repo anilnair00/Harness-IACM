@@ -66,8 +66,8 @@ jobs:
           
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: "1.9.8"
+        # with:
+        #   terraform_version: "1.9.8"
         
       - name: Get list of changed directories
         id: get-changed-dirs
