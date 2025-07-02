@@ -1,1 +1,3 @@
-test-rg
+test-rg-dev
+test-rg-uat
+test-rg-prod
