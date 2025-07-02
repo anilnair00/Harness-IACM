@@ -87,13 +87,17 @@ jobs:
       #     role-to-assume: "${{ secrets.AWS_OIDC_ROLE_ARN_NONPROD }}"
       #     role-session-name: Terraform-Deployment
       
+      # - uses: azure/login@v1
+      #   with:
+      #    client-id: ${{ secrets.client_id }}
+      #    tenant-id: ${{ secrets.tenant_id }}
+      #    # subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      #    allow-no-subscriptions: true
+
       - uses: azure/login@v1
-        with:
-         client-id: ${{ secrets.client_id }}
-         tenant-id: ${{ secrets.tenant_id }}
-         # subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-         allow-no-subscriptions: true
-         
+        with: 
+           creds: ${{ secrets.AZURE_CREDENTIALS }}
+     
       - name: Terraform Plan Pipelines
         # working-directory: 'pipelines/ecs'
         working-directory: 'harness-resources'
