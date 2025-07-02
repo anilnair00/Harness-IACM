@@ -182,22 +182,20 @@ locals {
 
   workspaces = flatten([
     for rg_name in local.rg_names : [
-#      for env in local.envs : {
-        identifier              = "${replace(rg_name, "-", "")}"
-        name                    = "${repository_name}"
-        org_id                  = var.org_id
-        project_id              = var.project_id
-        repository              = rg_name
-        repository_path         = env
-        repository_branch       = var.repository_branch
-        provisioner_type        = "opentofu"
-        provisioner_version     = "1.8.1"
-        cost_estimation_enabled = true
-        provider_connector      = env == "prod" ? var.provider_connector_prod : var.provider_connector_nonprod
-        repository_connector    = var.repository_connector
-        terraform_variables     = []
-        environment_variables   = []
- #     }
+      identifier              = "${replace(rg_name, "-", "")}"
+      name                    = "${repository_name}"
+      org_id                  = var.org_id
+      project_id              = var.project_id
+      repository              = rg_name
+      repository_path         = env
+      repository_branch       = var.repository_branch
+      provisioner_type        = "opentofu"
+      provisioner_version     = "1.8.1"
+      cost_estimation_enabled = true
+      provider_connector      = env == "prod" ? var.provider_connector_prod : var.provider_connector_nonprod
+      repository_connector    = var.repository_connector
+      terraform_variables     = []
+      environment_variables   = []
     ]
   ])
 }
