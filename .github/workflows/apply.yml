@@ -97,16 +97,16 @@ jobs:
       #    # subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       #    allow-no-subscriptions: true
 
-      - uses: azure/login@v1
-        with:
-         client-id: 084f318f-40aa-4d40-93ea-5ed3472b66bc
-         tenant-id: abec7981-3822-4685-98b0-533aca20c2ed
-         # subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-         allow-no-subscriptions: true
- 
       # - uses: azure/login@v1
-      #   with: 
-      #      creds: ${{ secrets.AZURE_CREDENTIALS }}
+      #   with:
+      #    client-id: 084f318f-40aa-4d40-93ea-5ed3472b66bc
+      #    tenant-id: abec7981-3822-4685-98b0-533aca20c2ed
+      #    # subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      #    allow-no-subscriptions: true
+ 
+      - uses: azure/login@v1
+        with: 
+           creds: ${{ secrets.AZURE_CREDENTIALS }}
            
       - name: Terraform Apply Pipelines
         # working-directory: 'pipelines/ecs'
