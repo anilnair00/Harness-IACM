@@ -1,5 +1,5 @@
 locals {
-  repository_names = [for repo in split("\n", file("./repo-list.txt")) : repo if repo != ""]
+  rg_names = [for repo in split("\n", file("./rg-list.txt")) : repo if repo != ""]
   input_sets = flatten([
     for repository_name in local.repository_names : [
       for env in local.envs : {
@@ -181,13 +181,13 @@ locals {
   repository_branch    = var.repository_branch
 
   workspaces = flatten([
-    for repository_name in local.repository_names : [
-      for env in local.envs : {
-        identifier              = "${replace(repository_name, "-", "")}${env}"
-        name                    = "${repository_name}-${env}"
+    for rg_name in local.rg_names : [
+#      for env in local.envs : {
+        identifier              = "${replace(rg_name, "-", "")}"
+        name                    = "${repository_name}"
         org_id                  = var.org_id
         project_id              = var.project_id
-        repository              = repository_name
+        repository              = rg_name
         repository_path         = env
         repository_branch       = var.repository_branch
         provisioner_type        = "opentofu"
@@ -197,7 +197,7 @@ locals {
         repository_connector    = var.repository_connector
         terraform_variables     = []
         environment_variables   = []
-      }
+ #     }
     ]
   ])
 }
