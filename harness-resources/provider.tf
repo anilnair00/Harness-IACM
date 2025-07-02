@@ -5,5 +5,4 @@ provider "harness" {
 }
 provider "azurerm" {
   features {}
-  use_oidc        = true
 }
