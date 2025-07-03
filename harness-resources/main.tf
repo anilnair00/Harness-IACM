@@ -1,5 +1,5 @@
 locals {
-  resourcegroup_names = [for repo in split("\n", file("./repo-list.txt")) : repo if repo != ""]
+  resourcegroup_names = [for rg in split("\n", file("./repo-list.txt")) : rg if rg != ""]
   input_sets = flatten([
     for repository_name in local.repository_names : [
       for env in local.envs : {
