@@ -1,5 +1,5 @@
 locals {
-  repository_names = [for repo in split("\n", file("./repo-list.txt")) : repo if repo != ""]
+  resourcegroup_names = [for repo in split("\n", file("./repo-list.txt")) : repo if repo != ""]
   input_sets = flatten([
     for repository_name in local.repository_names : [
       for env in local.envs : {
@@ -181,13 +181,13 @@ locals {
   repository_branch    = var.repository_branch
 
   workspaces = flatten([
-    for repository_name in local.repository_names : [
+    for resourcegroup_name in local.resourcegroup_names : [
       for env in local.envs : {
-        identifier              = "${replace(repository_name, "-", "")}${env}"
-        name                    = "${repository_name}-${env}"
+        identifier              = "${replace(resourcegroup_name, "-", "")}${env}"
+        name                    = "${resourcegroup_name}-${env}"
         org_id                  = var.org_id
         project_id              = var.project_id
-        repository              = repository_name
+        repository              = resourcegroup_name
         repository_path         = env
         repository_branch       = var.repository_branch
         provisioner_type        = "opentofu"
