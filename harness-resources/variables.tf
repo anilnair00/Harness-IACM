@@ -16,12 +16,14 @@ variable "org_id" {
   description = "The Harness Organization ID"
   type        = string
 }
-
+variable "repository_name" {
+  description = "The Harness Project ID"
+  type        = string
+}
 variable "project_id" {
   description = "The Harness Project ID"
   type        = string
 }
-
 variable "pipeline_id" {
   description = "The Harness Pipeline ID"
   type        = string
