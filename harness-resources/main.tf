@@ -1,21 +1,21 @@
 locals {
-  resourcegroup_names = [for rg in split("\n", file("./repo-list.txt")) : rg if rg != ""]
+  repository_names = [for repo in split("\n", file("./repo-list.txt")) : repo if repo != ""]
   input_sets = flatten([
-    for repository_name in local.resourcegroup_names : [
+    for repository_name in local.repository_names : [
       for env in local.envs : {
-        name        = "${resourcegroup_name}-${env}"
+        name        = "${repository_name}-${env}"
         org_id      = var.org_id
         project_id  = var.project_id
         env_type    = env == "prod" ? "prod" : "nonprod"
-        identifier  = "${replace(resourcegroup_name, "-", "")}${env}"
+        identifier  = "${replace(repository_name, "-", "")}${env}"
         connector   = env == "prod" ? var.provider_connector_prod : var.provider_connector_nonprod
         env         = env
         pipeline_id = var.pipeline_id
         yaml        = <<-EOT
           inputSet:
-            name: ${resourcegroup_name}-${env}
+            name: ${repository_name}-${env}
             tags: {}
-            identifier: ${replace(resourcegroup_name, "-", "")}${env}
+            identifier: ${replace(repository_name, "-", "")}${env}
             orgIdentifier: ${var.org_id}
             projectIdentifier: ${var.project_id}
             pipeline:
@@ -27,7 +27,7 @@ locals {
                         identifier: iacmplan
                         type: IACM
                         spec:
-                          workspace: "${replace(resourcegroup_name, "-", "")}${env}"
+                          workspace: "${replace(repository_name, "-", "")}${env}"
                           infrastructure:
                             type: KubernetesDirect
                             spec:
@@ -53,7 +53,7 @@ locals {
                         identifier: iacmapply
                         type: IACM
                         spec:
-                          workspace: "${replace(resourcegroup_name, "-", "")}${env}"
+                          workspace: "${replace(repository_name, "-", "")}${env}"
                           infrastructure:
                             type: KubernetesDirect
                             spec:
@@ -67,18 +67,18 @@ locals {
 
   ##### Trigge =r YAML #####
   triggers = flatten([
-    for resourcegroup_name in local.resourcegroup_names : [
+    for repository_name in local.repository_names : [
       for env in local.envs : {
-        name       = "${resourcegroup_name}-${env}-pipeline-trigger"
+        name       = "${repository_name}-${env}-pipeline-trigger"
         org_id     = var.org_id
-        identifier = "${replace(resourcegroup_name, "-", "")}${env}pipelinetrigger"
+        identifier = "${replace(repository_name, "-", "")}${env}pipelinetrigger"
         project_id = var.project_id
         target_id  = var.target_id
         env        = env
         yaml       = <<-EOT
           trigger:
-            name: ${resourcegroup_name}-${env}-pipeline-trigger
-            identifier: ${replace(resourcegroup_name, "-", "")}${env}pipelinetrigger
+            name: ${repository_name}-${env}-pipeline-trigger
+            identifier: ${replace(repository_name, "-", "")}${env}pipelinetrigger
             enabled: true
             encryptedWebhookSecretIdentifier: ""
             description: ""
@@ -107,14 +107,14 @@ locals {
                         operator: Equals
                         value: develop
                     headerConditions: []
-                    repoName: ${resourcegroup_name}
+                    repoName: ${repository_name}
                     actions:
                       - Open
                       - Edit
                       - Synchronize
                       - Reopen
             inputSetRefs:
-              - ${replace(resourcegroup_name, "-", "")}${env}
+              - ${replace(repository_name, "-", "")}${env}
             EOT
       }
     ]
@@ -187,7 +187,7 @@ locals {
         name                    = "${repository_name}-${env}"
         org_id                  = var.org_id
         project_id              = var.project_id
-        repository              = resourcegroup_name
+        repository              = repository_name
         repository_path         = env
         repository_branch       = var.repository_branch
         provisioner_type        = "opentofu"
