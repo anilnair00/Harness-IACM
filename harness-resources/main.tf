@@ -8,7 +8,7 @@ locals {
         org_id                  = var.org_id
         project_id              = var.project_id
 #       repository              = repository_name
-        repository              = ${var.repository_name}
+        repository              = var.repository_name
         repository_path         = env
         repository_branch       = var.repository_branch
         provisioner_type        = "opentofu"
