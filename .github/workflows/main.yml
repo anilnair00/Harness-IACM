@@ -30,10 +30,10 @@ jobs:
 #      TF_VAR_HARNESS_PLATFORM_API_KEY: sat.g-vh4hT8T4KUr9_mnKTaJg.681b4024bbb1cc0cedfec365.U3yd9VGr19l7bDwVwyhq
       TF_VAR_HARNESS_PLATFORM_API_KEY: ${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}
       # sat.g-vh4hT8T4KUr9_mnKTaJg.685595904faad81e28d7112b.K81H7w76DW2pOD7TwaMR
-      backendAzureRmResourceGroupName: ${{ vars.backendAzureRmResourceGroupName }}
-      backendAzureRmStorageAccountName: ${{ vars.backendAzureRmStorageAccountName }}
-      backendAzureRmContainerName: ${{ vars.backendAzureRmContainerName }}
-      backendAzureRmKey: ${{ vars.backendAzureRmKey }}
+      backendAzureRmResourceGroupName: ${{ vars.BACKEND_RG_NAME }}
+      backendAzureRmStorageAccountName: ${{ vars.BACKEND_STORAGE_ACCOUNT }}
+      backendAzureRmContainerName: ${{ vars.BACKEND_STORAGE_CONTAINER }}
+      backendAzureRmKey: ${{ vars.BACKEND_STORAGE_KEYS }}
       client_id: ${{ vars.client_id }}
       tenant_id: ${{ vars.tenant_id }}
       # AZURE_CREDENTIALS: ${{ vars.AZURE_CREDENTIALS }}
@@ -50,10 +50,10 @@ jobs:
       TF_VAR_HARNESS_ACCOUNT_ID: ${{ vars.TF_VAR_HARNESS_ACCOUNT_ID }}
       # TF_VAR_HARNESS_PLATFORM_API_KEY: sat.g-vh4hT8T4KUr9_mnKTaJg.681b4024bbb1cc0cedfec365.U3yd9VGr19l7bDwVwyhq
       TF_VAR_HARNESS_PLATFORM_API_KEY: ${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}    
-      backendAzureRmResourceGroupName: ${{ vars.backendAzureRmResourceGroupName }}
-      backendAzureRmStorageAccountName: ${{ vars.backendAzureRmStorageAccountName }}
-      backendAzureRmContainerName: ${{ vars.backendAzureRmContainerName }}
-      backendAzureRmKey: ${{ vars.backendAzureRmKey }}
+      backendAzureRmResourceGroupName: ${{ vars.BACKEND_RG_NAME }}
+      backendAzureRmStorageAccountName: ${{ vars.BACKEND_STORAGE_ACCOUNT }}
+      backendAzureRmContainerName: ${{ vars.BACKEND_STORAGE_CONTAINER }}
+      backendAzureRmKey: ${{ vars.BACKEND_STORAGE_KEYS }}
       client_id: ${{ vars.client_id }}
       tenant_id: ${{ vars.tenant_id }}
       # AZURE_CREDENTIALS: ${{ vars.AZURE_CREDENTIALS }}
