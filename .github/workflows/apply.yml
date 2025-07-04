@@ -28,17 +28,17 @@ on:
         # AC_HARNESS_TF_MODULES_PVT_KEY:
         #   description: 'AC_HARNESS_TF_MODULES_PVT_KEY'
           #   required: true
-        backendAzureRmResourceGroupName:
-          description: 'HARNESS_PLATFORM_API_KEY'
+        BACKEND_RG_NAME:
+          description: 'BACKEND_STORAGE_RESOURCE_GROUP_NAME'
           required: true
-        backendAzureRmStorageAccountName:
-          description: 'AC_HARNESS_TF_MODULES_PVT_KEY'
+        BACKEND_STORAGE_ACCOUNT:
+          description: 'BACKEND_STORAGE_ACCOUNT'
           required: true   
-        backendAzureRmContainerName:
-          description: 'HARNESS_PLATFORM_API_KEY'
+        BACKEND_STORAGE_CONTAINER:
+          description: 'BACKEND_STORAGE_CONTAINER'
           required: true
-        backendAzureRmKey:
-            description: 'AC_HARNESS_TF_MODULES_PVT_KEY'
+        BACKEND_STORAGE_KEYS:
+            description: 'BACKEND_STORAGE_KEYS'
             required: true   
         client_id:
             description: 'Client ID'
@@ -116,8 +116,8 @@ jobs:
           echo "TF_VAR_HARNESS_ENDPOINT=${{ secrets.TF_VAR_HARNESS_ENDPOINT }}" >> $GITHUB_ENV
           echo "TF_VAR_HARNESS_ACCOUNT_ID=${{ secrets.TF_VAR_HARNESS_ACCOUNT_ID }}" >> $GITHUB_ENV
           echo "TF_VAR_HARNESS_PLATFORM_API_KEY=${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}" >> $GITHUB_ENV
-          terraform init -backend-config="resource_group_name=Testvm_group" \
-               -backend-config="storage_account_name=testvmgroupb7e2" \
-               -backend-config="container_name=tfstate" \
-               -backend-config="key=harness"
+          terraform init -backend-config="resource_group_name=${{ secrets.BACKEND_RG_NAME }}" \
+               -backend-config="storage_account_name=${{ secrets.BACKEND_STORAGE_ACCOUNT }" \
+               -backend-config="container_name=${{ secrets.BACKEND_STORAGE_CONTAINER }}" \
+               -backend-config="key=${{ secrets.BACKEND_STORAGE_KEYS }}"
           terraform apply -auto-approve -var="TF_VAR_HARNESS_ENDPOINT=${{ secrets.TF_VAR_HARNESS_ENDPOINT }}" -var="TF_VAR_HARNESS_ACCOUNT_ID=${{ secrets.TF_VAR_HARNESS_ACCOUNT_ID }}" -var="TF_VAR_HARNESS_PLATFORM_API_KEY=${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}"
