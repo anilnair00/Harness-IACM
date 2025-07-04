@@ -117,7 +117,7 @@ jobs:
           echo "TF_VAR_HARNESS_ACCOUNT_ID=${{ secrets.TF_VAR_HARNESS_ACCOUNT_ID }}" >> $GITHUB_ENV
           echo "TF_VAR_HARNESS_PLATFORM_API_KEY=${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}" >> $GITHUB_ENV
           terraform init -backend-config="resource_group_name=${{ secrets.BACKEND_RG_NAME }}" \
-               -backend-config="storage_account_name=${{ secrets.BACKEND_STORAGE_ACCOUNT }" \
+               -backend-config="storage_account_name=${{ secrets.BACKEND_STORAGE_ACCOUNT }}" \
                -backend-config="container_name=${{ secrets.BACKEND_STORAGE_CONTAINER }}" \
                -backend-config="key=${{ secrets.BACKEND_STORAGE_KEYS }}"
           terraform apply -auto-approve -var="TF_VAR_HARNESS_ENDPOINT=${{ secrets.TF_VAR_HARNESS_ENDPOINT }}" -var="TF_VAR_HARNESS_ACCOUNT_ID=${{ secrets.TF_VAR_HARNESS_ACCOUNT_ID }}" -var="TF_VAR_HARNESS_PLATFORM_API_KEY=${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}"
