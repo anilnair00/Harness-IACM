@@ -25,23 +25,23 @@ on:
       TF_VAR_HARNESS_PLATFORM_API_KEY:
         description: 'HARNESS_PLATFORM_API_KEY'
         required: true
-      backendAzureRmResourceGroupName:
-          description: 'HARNESS_PLATFORM_API_KEY'
+      BACKEND_RG_NAME:
+          description: 'BACKEND_STORAGE_RESOURCE_GROUP_NAME'
           required: true
-      backendAzureRmStorageAccountName:
-          description: 'AC_HARNESS_TF_MODULES_PVT_KEY'
+      BACKEND_STORAGE_ACCOUNT:
+          description: 'BACKEND_STORAGE_ACCOUNT_NAME'
           required: true   
-      backendAzureRmContainerName:
-          description: 'HARNESS_PLATFORM_API_KEY'
+      BACKEND_STORAGE_CONTAINER:
+          description: 'BACKEND_STORAGE_CONTAINER_NAME'
           required: true
-      backendAzureRmKey:
-            description: 'AC_HARNESS_TF_MODULES_PVT_KEY'
+      BACKEND_STORAGE_KEYS:
+            description: 'BACKEND_STORAGE_KEY'
             required: true   
       client_id:
-            description: 'Client ID'
+            description: 'SPN_Client_ID'
             required: true   
       tenant_id:
-            description: 'Tenant ID'
+            description: 'SPN_Tenant_ID'
             required: true  
       # AZURE_CREDENTIALS: 
       #       description: 'Azure Credentials'
@@ -106,14 +106,13 @@ jobs:
           echo "TF_VAR_HARNESS_ENDPOINT=${{ secrets.TF_VAR_HARNESS_ENDPOINT }}" >> $GITHUB_ENV
           echo "TF_VAR_HARNESS_ACCOUNT_ID=${{ secrets.TF_VAR_HARNESS_ACCOUNT_ID }}" >> $GITHUB_ENV
           echo "TF_VAR_HARNESS_PLATFORM_API_KEY=${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}" >> $GITHUB_ENV
-          # terraform init -backend-config="role_arn=${{ secrets.S3_BACKEND_ROLE_PROD_ARN }}"
-          # terraform init -backend-config="resource_group_name=${{ secrets.AZURE_RG_NAME }}" \
-          #      -backend-config="storage_account_name=${{ secrets.AZURE_STORAGE_ACCOUNT }}" \
-          #      -backend-config="container_name=${{ secrets.AZURE_STORAGE_CONTAINER }}" \
-          #      -backend-config="key=terraform.tfstate" \
-          #      -backend-config="access_key=${{ secrets.AZURE_STORAGE_KEY }}"
-          terraform init -backend-config="resource_group_name=Testvm_group" \
-               -backend-config="storage_account_name=testvmgroupb7e2" \
-               -backend-config="container_name=tfstate" \
-               -backend-config="key=harness"
+          terraform init -backend-config="resource_group_name==${{ secrets.BACKEND_RG_NAME }}" \
+               -backend-config="storage_account_name=${{ secrets.BACKEND_STORAGE_ACCOUNT }}" \
+               -backend-config="container_name=${{ secrets.BACKEND_STORAGE_CONTAINER }}" \
+               -backend-config="key=${{ secrets.BACKEND_STORAGE_KEYS }}"
           terraform plan -var="TF_VAR_HARNESS_ENDPOINT=${{ secrets.TF_VAR_HARNESS_ENDPOINT }}" -var="TF_VAR_HARNESS_ACCOUNT_ID=${{ secrets.TF_VAR_HARNESS_ACCOUNT_ID }}" -var="TF_VAR_HARNESS_PLATFORM_API_KEY=${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}"
+          # terraform init -backend-config="resource_group_name=Testvm_group" \
+          #      -backend-config="storage_account_name=testvmgroupb7e2" \
+          #      -backend-config="container_name=tfstate" \
+          #      -backend-config="key=harness"
+          # terraform plan -var="TF_VAR_HARNESS_ENDPOINT=${{ secrets.TF_VAR_HARNESS_ENDPOINT }}" -var="TF_VAR_HARNESS_ACCOUNT_ID=${{ secrets.TF_VAR_HARNESS_ACCOUNT_ID }}" -var="TF_VAR_HARNESS_PLATFORM_API_KEY=${{ secrets.TF_VAR_HARNESS_PLATFORM_API_KEY }}"
