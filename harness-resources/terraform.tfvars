@@ -10,5 +10,5 @@ provider_connector_nonprod = "AzConnectivityManagedIdentity"
 #provider_connector_nonprod = "org.acenterprisetoolsnonprodawsconnector"
 #provider_connector_prod    = "org.acenterprisetoolsprodawsconnector"
 provider_connector_prod = "AzConnectivityManagedIdentity"
-envs                       = ["int", "crt", "bat", "preprod", "prod"]
+envs                       = ["dev", "uat", "prod"]
 repository_name            = "Harness-IACM"
