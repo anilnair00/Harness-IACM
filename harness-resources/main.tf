@@ -189,8 +189,8 @@ locals {
         project_id              = var.project_id
 #        repository             = repository_name
         repository              = var.repository_name
-#        repository_path         = env
-        repository_path         = terraform
+        repository_path         = env
+#        repository_path         = terraform
         repository_branch       = var.repository_branch
         provisioner_type        = "opentofu"
         provisioner_version     = "1.8.1"
