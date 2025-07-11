@@ -13,5 +13,5 @@ provider_connector_prod = "AzConnectivityManagedIdentityprod"
 envs                       = ["dev", "uat", "prod"]
 repository_path            = "terraform"
 repository_name            = "Harness-IACM"
-kubernetes_connector_nonprod = testk8sconnector
-kubernetes_connector_prod = testk8sconnectorprod
+kubernetes_connector_nonprod = "testk8sconnector"
+kubernetes_connector_prod = "testk8sconnectorprod"
