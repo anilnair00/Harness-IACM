@@ -15,7 +15,8 @@ locals {
         provisioner_type        = "opentofu"
         provisioner_version     = "1.8.1"
         cost_estimation_enabled = true
-        provider_connector      = env == "prod" ? var.provider_connector_prod : var.provider_connector_nonprod
+#        provider_connector      = env == "prod" ? var.provider_connector_prod : var.provider_connector_nonprod
+        provider_connector      = contains(resourcegroup_name, "prod") ? var.provider_connector_prod : var.provider_connector_nonprod
         repository_connector    = var.repository_connector
         terraform_variables     = []
         environment_variables   = []
