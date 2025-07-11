@@ -4,14 +4,11 @@ locals {
   input_sets = flatten([
     for resourcegroup_name in local.resourcegroup_names : {
  #     for env in local.envs : {
-        name        = "${resourcgroup_name}"
+        name        = "${resourcegroup_name}"
         org_id      = var.org_id
         project_id  = var.project_id
-        env_type    = env == "prod" ? "prod" : "nonprod"
         identifier  = "${replace(resourcegroup_name, "-", "")}"
-#        connector   = env == "prod" ? var.provider_connector_prod : var.provider_connector_nonprod
         connector   = can(regex("(?i)prod", resourcegroup_name)) ? var.provider_connector_prod : var.provider_connector_nonprod
-        env         = env
         pipeline_id = var.pipeline_id
         yaml        = <<-EOT
           inputSet:
@@ -33,12 +30,9 @@ locals {
                           infrastructure:
                             type: KubernetesDirect
                             spec:
- #                             connectorRef: account.ac_eks_connector_${env == "prod" ? "prod" : "nonprod"}
                               connectorRef: can(regex("(?i)prod", resourcegroup_name)) ? var.kubernetes_connector_prod : var.kubernetes_connector_nonprod
                               namespace: harness-delegate-ng
                               serviceAccountName: default
-#                              namespace: harness-ac-${env == "prod" ? "prod" : "nonprod"}-ng
-#                              serviceAccountName: ac-delegate-${env == "prod" ? "prod" : "nonprod"}-sa
                     - stage:
                         identifier: approval_for_apply
                         type: Approval
@@ -52,7 +46,6 @@ locals {
                                     approvers:
                                       minimumCount: 1
                                       userGroups:
-#                                        - account.acdevops
                                         - _project_all_users
                     - stage:
                         identifier: iacmapply
@@ -62,9 +55,6 @@ locals {
                           infrastructure:
                             type: KubernetesDirect
                             spec:
-#                              connectorRef: account.ac_eks_connector_${env == "prod" ? "prod" : "nonprod"}
-#                              namespace: harness-ac-${env == "prod" ? "prod" : "nonprod"}-ng
-#                              serviceAccountName: ac-delegate-${env == "prod" ? "prod" : "nonprod"}-sa
                               connectorRef: can(regex("(?i)prod", resourcegroup_name)) ? var.kubernetes_connector_prod : var.kubernetes_connector_nonprod
                               namespace: harness-delegate-ng
                               serviceAccountName: default
