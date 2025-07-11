@@ -11,4 +11,5 @@ provider_connector_nonprod = "AzConnectivityManagedIdentity"
 #provider_connector_prod    = "org.acenterprisetoolsprodawsconnector"
 provider_connector_prod = "AzConnectivityManagedIdentity"
 envs                       = ["dev", "uat", "prod"]
+repository_path            = "terraform"
 repository_name            = "Harness-IACM"
