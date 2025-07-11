@@ -2,8 +2,8 @@ locals {
   envs = var.envs
   resourcegroup_names = [for rg in split("\n", file("./rg-list.txt")) : rg if rg != ""]
   workspaces = flatten([
-    for resourcegroup_name in local.resourcegroup_names : {
-#      for env in local.envs : {
+    for resourcegroup_name in local.resourcegroup_names : [
+      for env in local.envs : {
         identifier              = "${replace(resourcegroup_name, "-", "")}"
         name                    = "${resourcegroup_name}"
         org_id                  = var.org_id
@@ -21,7 +21,7 @@ locals {
         terraform_variables     = []
         environment_variables   = []
 #      }
-    }
+    ]
   ])
 }
 module "workspaces" {
