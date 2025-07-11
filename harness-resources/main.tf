@@ -1,5 +1,5 @@
 locals {
-#  envs = var.envs
+  envs = var.envs
   resourcegroup_names = [for rg in split("\n", file("./rg-list.txt")) : rg if rg != ""]
   workspaces = flatten([
     for resourcegroup_name in local.resourcegroup_names : {
