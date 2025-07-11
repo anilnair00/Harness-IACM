@@ -2,7 +2,7 @@ name: Terraform Deployment
 on:
   workflow_dispatch:
     inputs:
-      environment:
+      project:
         description: 'Select the project'
         required: true
         default: 'project-1'
