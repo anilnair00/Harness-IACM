@@ -21,7 +21,6 @@ locals {
         terraform_variables     = []
         environment_variables   = []
       }
-    ]
   ])
 }
 module "workspaces" {
