@@ -55,8 +55,8 @@ on:
 jobs:
   terraform-apply:
     name: Terraform Apply
-    # environment:
-    #     name: ${{ inputs.gh_environment }}
+    environment:
+        name: ${{ inputs.gh_environment }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -109,9 +109,7 @@ jobs:
       #      creds: ${{ secrets.AZURE_CREDENTIALS }}
            
       - name: Terraform Apply Pipelines
-        # working-directory: 'pipelines/ecs'
-        working-directory: 'harness-resources'
-        # working-directory: ${{ inputs.workdir_path }}
+        working-directory: ${{ inputs.workdir_path }}
         run: |
           echo "TF_VAR_HARNESS_ENDPOINT=${{ secrets.TF_VAR_HARNESS_ENDPOINT }}" >> $GITHUB_ENV
           echo "TF_VAR_HARNESS_ACCOUNT_ID=${{ secrets.TF_VAR_HARNESS_ACCOUNT_ID }}" >> $GITHUB_ENV
