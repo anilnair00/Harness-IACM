@@ -56,6 +56,14 @@ variable "provider_connector_prod" {
   description = "Harness AWS Provider PROD Connector"
   type        = string
 }
+variable "kubernetes_connector_prod" {
+  description = "Harness AWS Provider PROD Connector"
+  type        = string
+}
+variable "kubernetes_connector_nonprod" {
+  description = "Harness AWS Provider PROD Connector"
+  type        = string
+}
 variable "envs" {
   description = "AWS Environments"
   type        = list(any)
