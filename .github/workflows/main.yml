@@ -47,7 +47,7 @@ jobs:
     uses: "./.github/workflows/apply.yml"
     with:
       gh_environment: prod
-      # workdir_path: 'organizations'
+      workdir_path: "${{ github.event.inputs.project }}"
     secrets:
       TF_VAR_HARNESS_ENDPOINT: ${{ vars.TF_VAR_HARNESS_ENDPOINT }}
       TF_VAR_HARNESS_ACCOUNT_ID: ${{ vars.TF_VAR_HARNESS_ACCOUNT_ID }}
