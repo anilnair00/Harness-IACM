@@ -40,6 +40,10 @@ variable "repository_connector" {
   description = "Harness GitHub repository connector"
   type        = string
 }
+variable "repository_path" {
+  description = "Harness GitHub repository path"
+  type        = string
+}
 variable "repository_branch" {
   description = "GitHub repository Branch"
   type        = string
