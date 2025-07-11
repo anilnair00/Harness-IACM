@@ -20,7 +20,7 @@ locals {
         repository_connector    = var.repository_connector
         terraform_variables     = []
         environment_variables   = []
-#      }
+      }
     ]
   ])
 }
