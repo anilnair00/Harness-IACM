@@ -113,7 +113,7 @@ locals {
                         operator: Equals
                         value: develop
                     headerConditions: []
-                   repoName: Harness-IACM
+                   repoName: ${var.repository_name}
                     actions:
                       - Open
                       - Edit
