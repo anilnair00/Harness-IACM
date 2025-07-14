@@ -113,7 +113,6 @@ locals {
                         operator: Equals
                         value: develop
                     headerConditions: []
-#                    repoName: ${repository_name}
                    repoName: var.repository_name
                     actions:
                       - Open
@@ -121,7 +120,7 @@ locals {
                       - Synchronize
                       - Reopen
             inputSetRefs:
-              - ${replace(repository_name, "-", "")}${env}
+              - ${replace(project_name, "-", "")}${env}
             EOT
       }
     ]
@@ -188,10 +187,10 @@ locals {
   repository_branch    = var.repository_branch
 
   workspaces = flatten([
-    for repository_name in local.repository_names : [
+    for project_name in local.project_names : [
       for env in local.envs : {
-        identifier              = "${replace(repository_name, "-", "")}${env}"
-        name                    = "${repository_name}-${env}"
+        identifier              = "${replace(project_name, "-", "")}${env}"
+        name                    = "${project_name}-${env}"
         org_id                  = var.org_id
         project_id              = var.project_id
 #        repository              = repository_name
