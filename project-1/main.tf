@@ -134,7 +134,7 @@ locals {
           identifier: ${var.pipeline_id}
           tags: {}
           template:
-            templateRef: account.IACM
+            templateRef: account.iacm
             versionLabel: "1"
             templateInputs:
               stages:
