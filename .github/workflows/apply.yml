@@ -1,5 +1,4 @@
 name: Harness Apply
-
 on:
   workflow_call:
     inputs:
