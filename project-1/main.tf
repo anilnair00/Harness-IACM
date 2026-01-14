@@ -197,7 +197,8 @@ locals {
 #        repository_path         = env
         repository              = var.repository_name
         repository_path         = var.repository_path
-        repository_branch       = var.repository_branch
+#        repository_branch       = var.repository_branch
+        repository_branch       = env == "prod" ? var.repository_branch_prod : var.repository_branch_nonprod
         provisioner_type        = "opentofu"
         provisioner_version     = "1.8.1"
         cost_estimation_enabled = true
