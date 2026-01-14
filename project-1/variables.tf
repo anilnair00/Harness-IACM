@@ -48,6 +48,14 @@ variable "repository_branch" {
   description = "GitHub repository Branch"
   type        = string
 }
+variable "repository_branch_prod" {
+  description = "GitHub repository Branch"
+  type        = string
+}
+variable "repository_branch_nonprod" {
+  description = "GitHub repository Branch"
+  type        = string
+}
 variable "provider_connector_nonprod" {
   description = "Harness AWS Provider NonProd Connector"
   type        = string
