@@ -130,8 +130,8 @@ locals {
     cost_estimation_enabled = true
     provider_connector      = var.envs == "nonpod" ? var.provider_connector_prod : var.provider_connector_nonprod
     repository_connector    = var.repository_connector
-    terraform_variables     = []
-    environment_variables   = []
+#    terraform_variables     = []
+#    environment_variables   = []
   }
 }
 module "workspaces" {
