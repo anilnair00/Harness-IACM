@@ -2,7 +2,10 @@ variable "TF_VAR_HARNESS_ENDPOINT" {
   description = "The Harness API endpoint"
   type        = string
 }
-
+variable "project_name" {
+  description = "Projectname"
+  type        = string
+}
 variable "TF_VAR_HARNESS_ACCOUNT_ID" {
   description = "The Harness account ID"
   type        = string
