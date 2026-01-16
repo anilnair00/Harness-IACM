@@ -3,7 +3,7 @@ locals {
   env_type   = var.envs
 
   ##### INPUT SET #####
-  input_set = {
+  input_sets = {
     name        = "${var.project_name}-${var.envs}"
     org_id      = var.org_id
     project_id  = var.project_id
@@ -61,7 +61,7 @@ locals {
   }
 
   ##### TRIGGER #####
-  trigger = {
+  triggers = {
     name       = "${var.project_name}-${var.envs}-pipeline-trigger"
     identifier = "${local.identifier}pipelinetrigger"
     org_id     = var.org_id
@@ -117,7 +117,7 @@ locals {
   EOT
 
   ##### WORKSPACE #####
-  workspace = {
+  workspaces = {
     identifier              = local.identifier
     name                    = "${var.project_name}-${var.envs}"
     org_id                  = var.org_id
