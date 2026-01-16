@@ -1,6 +1,7 @@
 org_id                     = "default"
 project_id                 = "testproject"
 pipeline_id                = "mypocpipeline"
+project_name               = "testingsingleproject"
 target_id                  = "mypocpipeline"
 pipeline_name              = "mypocpipeline"
 repository_connector       = "githubConnectivity"
