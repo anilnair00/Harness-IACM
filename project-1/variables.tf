@@ -76,6 +76,6 @@ variable "kubernetes_connector_nonprod" {
   type        = string
 }
 variable "envs" {
-  description = "AWS Environments"
-  type        = list(any)
+  description = "Azure Environments"
+  type        = string
 }
