@@ -1,18 +1,18 @@
 locals {
-  identifier = "${replace(var.project_name, "-", "")}${var.env}"
-  env_type   = var.env == "prod" ? "prod" : "nonprod"
+  identifier = "${replace(var.project_name, "-", "")}${var.envs}"
+  env_type   = var.envs == "prod" ? "prod" : "nonprod"
 
   ##### INPUT SET #####
   input_set = {
-    name        = "${var.project_name}-${var.env}"
+    name        = "${var.project_name}-${var.envs}"
     org_id      = var.org_id
     project_id  = var.project_id
     identifier  = local.identifier
-    env         = var.env
+    env         = var.envs
     pipeline_id = var.pipeline_id
     yaml = <<-EOT
       inputSet:
-        name: ${var.project_name}-${var.env}
+        name: ${var.project_name}-${var.envs}
         identifier: ${local.identifier}
         orgIdentifier: ${var.org_id}
         projectIdentifier: ${var.project_id}
@@ -43,7 +43,7 @@ locals {
                               type: HarnessApproval
                               spec:
                                 approvers:
-                                  minimumCount: ${var.env == "dev" ? 1 : 2}
+                                  minimumCount: ${var.envs == "dev" ? 1 : 2}
                                   userGroups:
                                     - _project_all_users
                 - stage:
@@ -62,14 +62,14 @@ locals {
 
   ##### TRIGGER #####
   trigger = {
-    name       = "${var.project_name}-${var.env}-pipeline-trigger"
+    name       = "${var.project_name}-${var.envs}-pipeline-trigger"
     identifier = "${local.identifier}pipelinetrigger"
     org_id     = var.org_id
     project_id = var.project_id
     target_id  = var.target_id
     yaml = <<-EOT
       trigger:
-        name: ${var.project_name}-${var.env}-pipeline-trigger
+        name: ${var.project_name}-${var.envs}-pipeline-trigger
         identifier: ${local.identifier}pipelinetrigger
         enabled: true
         orgIdentifier: ${var.org_id}
@@ -86,7 +86,7 @@ locals {
                 payloadConditions:
                   - key: changedFiles
                     operator: Regex
-                    value: ${var.env}/.*
+                    value: ${var.envs}/.*
                   - key: targetBranch
                     operator: Equals
                     value: main
@@ -119,16 +119,16 @@ locals {
   ##### WORKSPACE #####
   workspace = {
     identifier              = local.identifier
-    name                    = "${var.project_name}-${var.env}"
+    name                    = "${var.project_name}-${var.envs}"
     org_id                  = var.org_id
     project_id              = var.project_id
     repository              = var.repository_name
     repository_path         = var.repository_path
-    repository_branch       = var.env
+    repository_branch       = var.envs
     provisioner_type        = "opentofu"
     provisioner_version     = "1.8.1"
     cost_estimation_enabled = true
-    provider_connector      = var.env == "prod" ? var.provider_connector_prod : var.provider_connector_nonprod
+    provider_connector      = var.envs == "prod" ? var.provider_connector_prod : var.provider_connector_nonprod
     repository_connector    = var.repository_connector
     terraform_variables     = []
     environment_variables   = []
