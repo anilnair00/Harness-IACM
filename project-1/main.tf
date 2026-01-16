@@ -135,7 +135,7 @@ locals {
   }
 }
 module "workspaces" {
-  source     = "git::https://github.com/anilnair00/ac-harness-tf-modules-develop.git//modules/harness-workspaces?ref=main"
+  source     = "git::https://github.com/anilnair00/ac-harness-tf-modules-develop.git//modules/harness-workspaces?ref=feature"
   workspaces = local.workspaces
 }
 
