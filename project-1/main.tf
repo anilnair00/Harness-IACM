@@ -1,6 +1,6 @@
 locals {
   identifier = "${replace(var.project_name, "-", "")}${var.envs}"
-  env_type   = var.envs == "prod" ? "prod" : "nonprod"
+  env_type   = var.envs
 
   ##### INPUT SET #####
   input_set = {
@@ -43,7 +43,7 @@ locals {
                               type: HarnessApproval
                               spec:
                                 approvers:
-                                  minimumCount: ${var.envs == "dev" ? 1 : 2}
+                                  minimumCount: ${var.envs == "non-prod" ? 1 : 2}
                                   userGroups:
                                     - _project_all_users
                 - stage:
@@ -128,7 +128,7 @@ locals {
     provisioner_type        = "opentofu"
     provisioner_version     = "1.8.1"
     cost_estimation_enabled = true
-    provider_connector      = var.envs == "prod" ? var.provider_connector_prod : var.provider_connector_nonprod
+    provider_connector      = var.envs == "nonpod" ? var.provider_connector_prod : var.provider_connector_nonprod
     repository_connector    = var.repository_connector
     terraform_variables     = []
     environment_variables   = []
